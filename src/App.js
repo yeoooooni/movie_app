@@ -1,7 +1,9 @@
 import React from 'react';
-import axios from 'axios';
-import Movie from './Movie'
-import './App.css'
+import './App.css';
+import {HashRouter, Route} from 'react-router-dom';
+import About from './routes/About'
+import Home from './routes/Home'
+import Navigation from './componets/Navigation'
 
 // function App() { // 함수형 컴포넌트
 //   return <div className="App" />;
@@ -12,51 +14,14 @@ import './App.css'
 // render() : 컴포넌트의 기능과 모양새 정의, 리액트 요소 반환
 // componentDidMount() : 컴포넌트 생성하고 첫 렌더링이 끝났을 때 호출되는 함수
  
-class App extends React.Component { // 클래스형 컴포넌트는 항상 React.Component 상속받아야 함
-  state = {
-    isLoading: true,
-    movies: [],
-  }
-
-  getMovies = async () => {
-    const { // movies.data.data.movies 점 연산자 적용 순서대로 구조 분해 할당 적용
-      data: {
-        data: {movies},
-      },
-    } = await axios.get('https://yts-proxy.now.sh/list_movies.json?sort_by=rating')
-    this.setState({movies, isLoading: false}) // state: 변수 / 키 = 대입할 변수명 -> 축약 가능
-  }
-
-  componentDidMount() { 
-    this.getMovies();
-  }
-  
-  render() { // return 역할
-    const {isLoading, movies} = this.state;
-    return (
-      <section className="container">
-        {isLoading ? (
-          <div className="loader">
-            <span className="loader__text">Loading...</span>
-          </div>
-        ) : (
-        <div className="movies">
-          {movies.map((movie) => (
-            <Movie 
-              key = {movie.id}
-              id = {movie.id}
-              year = {movie.year}
-              title = {movie.title}
-              summary = {movie.summary}
-              poster = {movie.medium_cover_image}
-              genres = {movie.genres}
-            />
-          ))}
-        </div>
-        )}
-      </section>
-    );
-  }
+function App() {
+  return (
+    <HashRouter>
+      <Navigation />
+      <Route path="/" exact={true} component={Home} />
+      <Route path="/about" component={About} />
+    </HashRouter>
+  );
 }
 
 export default App;
