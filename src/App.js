@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Movie from './Movie'
+import './App.css'
 
 // function App() { // 함수형 컴포넌트
 //   return <div className="App" />;
@@ -33,13 +34,13 @@ class App extends React.Component { // 클래스형 컴포넌트는 항상 React
   render() { // return 역할
     const {isLoading, movies} = this.state;
     return (
-      <section class="container">
+      <section className="container">
         {isLoading ? (
-          <div class="loader">
-            <span class="loader__text">Loading...</span>
+          <div className="loader">
+            <span className="loader__text">Loading...</span>
           </div>
         ) : (
-        <div class="movies">
+        <div className="movies">
           {movies.map((movie) => (
             <Movie 
               key = {movie.id}
@@ -48,6 +49,7 @@ class App extends React.Component { // 클래스형 컴포넌트는 항상 React
               title = {movie.title}
               summary = {movie.summary}
               poster = {movie.medium_cover_image}
+              genres = {movie.genres}
             />
           ))}
         </div>
