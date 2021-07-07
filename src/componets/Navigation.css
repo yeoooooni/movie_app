@@ -14,8 +14,8 @@
 @media screen and (max-width: 1090px){
     .nav{
         left: initial; /* 초기값 */
-        top: initial;
-        bottom: 0px;
+        bottom: initial;
+        top: 0px;
         width: 100%;
     }
 }
